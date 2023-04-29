@@ -1,105 +1,167 @@
-@import url('https://fonts.googleapis.com/css2?family=Delicious+Handrawn&family=Mulish:wght@200&family=Playfair+Display:wght@600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Delicious+Handrawn&family=Mulish:wght@200&family=Playfair+Display:wght@600&display=swap");
 
-
-*{
-    font-family: 'Quicksand', sans-serif;
+* {
+  font-family: "Mulish", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    padding-top: 80px; /* altura aproximada da navbar */
-    padding-bottom: 80px; /* altura aproximada da navbar */
-    background-image: url(fundo.jpg);
-    background-size: cover;
-  }
+  padding-top: 80px;
+  padding-bottom: 80px;
+  background-image: url(fundo.jpg);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+#topo, #rodape {
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+  opacity: 0.8;
+  background-color: #333;
+}
 
 #topo {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%; /* Isso garante que a navbar ocupe toda a largura da janela do navegador */
-    z-index: 1000; /* Um valor alto de z-index garante que a navbar fique acima de outros elementos na página */
-    opacity : 0.8;
+  top: 0;
+  left: 0;
+}
+
+#rodape {
+  bottom: 0;
+  left: 0;
+  color: white;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  z-index: 1001; /* Adicione esta linha */
+}
+
+#rodape .navbar-brand {
+  margin-right: 1rem;
+  margin-bottom: 0;
+  font-size: 0.9rem;
+}
+
+#foto-inicio {
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 370px;
+  height: auto;
+  margin-bottom: 30px; /* Adicione esta linha */
+}
+
+#container-conteudo {
+  border-radius: 40px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  background-color: #ffffff;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: calc(100% - 160px);
+}
+
+p{ 
+  font-weight: bolder;
+}
+
+#texto-card {
+  padding: 30px;
+  border-radius: 40px;
+  background: linear-gradient(to right, #ffffff, #f3e5e5,  #ece6e6);
+}
+
+h1 {
+  font-family: "Playfair Display", serif; /* Altere a fonte para "Playfair Display" */
+  font-weight: 600;
+  font-size: 3rem; /* Aumente o tamanho da fonte */
+  color: #4a4a4a; /* Mude a cor para um tom de cinza mais escuro */
+  text-align: center;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase; /* Transforme o texto em letras maiúsculas */
+  letter-spacing: 1px; /* Adicione um espaçamento entre as letras */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Adicione uma sombra suave ao texto */
+}
+
+li.nav-item a {
+  color: #fff;
+  margin-right: 30px;
+  text-decoration: none;
+  transition: color 0.5s, background-color 0.8s;
+}
+
+li.nav-item a:hover {
+  background-color: rgb(134, 0, 0);
+  border-radius: 10px;
+}
+
+.navbar-toggler {
+  border: none;
+  background: transparent;
+  padding: 0.25rem 0.5rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.navbar-toggler span {
+  display: block;
+  width: 24px;
+  height: 3px;
+  margin-bottom: 4px;
+  background-color: #fff;
+  border-radius: 2px;
+}
+
+.navbar-collapse {
+  display: none;
+}
+
+.navbar-collapse.show {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .navbar-toggler {
+  display: none;
   }
   
-  #rodape {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    color: white;
-    padding: 0.5rem 1rem;
-    opacity : 0.8;
+  .navbar-collapse {
+  display: flex;
   }
-  
-  #rodape .navbar-brand {
-    margin-right: 1rem;
-    margin-bottom: 0;
-    font-size: 0.9rem;
-  }
-
-  #foto-inicio {
-    border-radius: 40px;
-    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-  }
-
-  #container-conteudo{
-    border-radius: 40px;
-    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.5);
-  }
-
-  #texto-card, #secao-foto {
-    padding: 30px;
-    border-radius: 40px;
-  }
-
-
-  h1 {
-
-    font-weight: 600;
-    font-size: 2.5rem;
-    color: #333;
-    text-align: center;
-    margin-bottom: 1.5rem;
-  }
-
-
-  #texto-card {
-    background: linear-gradient(to right, #ffffff, #fad6d6);
   }
   
   #rodape svg {
-    display: inline-block;
-    vertical-align: middle;
-    width: 20px;
-    height: 20px;
+  display: inline-block;
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
   }
   
   #rodape span {
-    vertical-align: middle;
+  vertical-align: middle;
   }
   
   #rodape p {
-    font-size: 0.8rem;
-    margin-bottom: 0;
+  font-size: 0.8rem;
+  margin-bottom: 0;
   }
 
-  
-  li.nav-item a {
-    margin-right: 30px;
-  }
+/* Adicione este código CSS no seu arquivo style.css */
 
-  li.nav-item a:hover {
-    background-color: rgb(134, 0, 0);
-    border-radius: 10px;
-    transition: background-color 0.8s, color 0.5s;
-  }
+/* Estilo para o botão de pesquisa */
+.btn-outline-success {
+  margin-top: 0.25rem;
+}
 
-  #foto-inicio {
-    width: 370px;
+/* Estilo para alinhar a barra de pesquisa */
+.form-control {
+  margin-top: 0.65rem;
+  margin-bottom: 0.25rem;
+}
 
-  }
-
-  
-
-  
+#btnPesquisar {
+  color: white;
+}
