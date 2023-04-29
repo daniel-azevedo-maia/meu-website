@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Delicious+Handrawn&family=Mulish:wght@200&family=Playfair+Display:wght@600&display=swap');
+
+
+*{
+    font-family: 'Quicksand', sans-serif;
+}
+
+body {
+    padding-top: 80px; /* altura aproximada da navbar */
+    padding-bottom: 80px; /* altura aproximada da navbar */
+    background-image: url(fundo.jpg);
+    background-size: cover;
+  }
+
+#topo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* Isso garante que a navbar ocupe toda a largura da janela do navegador */
+    z-index: 1000; /* Um valor alto de z-index garante que a navbar fique acima de outros elementos na página */
+    opacity : 0.8;
+  }
+  
+  #rodape {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    color: white;
+    padding: 0.5rem 1rem;
+    opacity : 0.8;
+  }
+  
+  #rodape .navbar-brand {
+    margin-right: 1rem;
+    margin-bottom: 0;
+    font-size: 0.9rem;
+  }
+
+  #foto-inicio {
+    border-radius: 40px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  }
+
+  #container-conteudo{
+    border-radius: 40px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.5);
+  }
+
+  #texto-card, #secao-foto {
+    padding: 30px;
+    border-radius: 40px;
+  }
+
+
+  h1 {
+
+    font-weight: 600;
+    font-size: 2.5rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+
+  #texto-card {
+    background: linear-gradient(to right, #ffffff, #fad6d6);
+  }
+  
+  #rodape svg {
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+  }
+  
+  #rodape span {
+    vertical-align: middle;
+  }
+  
+  #rodape p {
+    font-size: 0.8rem;
+    margin-bottom: 0;
+  }
+
+  
+  li.nav-item a {
+    margin-right: 30px;
+  }
+
+  li.nav-item a:hover {
+    background-color: rgb(134, 0, 0);
+    border-radius: 10px;
+    transition: background-color 0.8s, color 0.5s;
+  }
+
+  #foto-inicio {
+    width: 370px;
+
+  }
+
+  
+
+  
