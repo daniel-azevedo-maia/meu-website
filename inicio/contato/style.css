@@ -10,7 +10,7 @@
 body {
   padding-top: 80px;
   padding-bottom: 80px;
-  background-image: url(fundo.jpg);
+  background-image: url(../fundo.jpg);
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -46,24 +46,17 @@ body {
 
 #foto-inicio {
   border-radius: 50%;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15), 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra mais suave */
-  border: 5px solid rgba(255, 255, 255, 0.8); /* Adicione uma borda branca com transparência */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
   width: 100%;
   max-width: 370px;
   height: auto;
-  margin-bottom: 30px;
-  transition: box-shadow 0.3s, border-color 0.3s; /* Adicione uma transição para sombra e cor da borda */
-}
-
-#foto-inicio:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.15); /* Sombra mais intensa no hover */
-  border-color: rgba(171, 171, 171, 0.8); /* Mude a cor da borda para azul no hover */
+  margin-bottom: 30px; /* Adicione esta linha */
 }
 
 #container-conteudo {
   border-radius: 40px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-  background-color: #ede5e5;
+  background-color: #ffffff;
   padding: 30px;
   display: flex;
   flex-direction: column;
@@ -79,7 +72,6 @@ p{
   padding: 30px;
   border-radius: 40px;
   background: linear-gradient(to right, #ffffff, #f3e5e5,  #ece6e6);
-  text-align: justify;
 }
 
 h1 {
@@ -172,4 +164,52 @@ li.nav-item a:hover {
 
 #btnPesquisar {
   color: white;
+}
+
+.container-form {
+  max-width: 800px; /* Limita a largura do contêiner do formulário */
+  margin: 0 auto; /* Centraliza o contêiner do formulário */
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.9); /* Adicione um fundo branco com transparência */
+  border-radius: 10px; /* Adicione bordas arredondadas */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); /* Adicione sombras */
+}
+
+.form-row {
+  margin-bottom: 15px; /* Adicione uma margem inferior para separar os campos */
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-control {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.btn-primary:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
 }
