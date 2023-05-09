@@ -10,7 +10,7 @@
 body {
   padding-top: 80px;
   padding-bottom: 80px;
-  background-image: url(fundo.jpg);
+  background-image: url(../fundo.jpg);
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -68,6 +68,11 @@ p{
   font-weight: bolder;
 }
 
+#texto-card {
+  padding: 30px;
+  border-radius: 40px;
+  background: linear-gradient(to right, #ffffff, #f3e5e5,  #ece6e6);
+}
 
 h1 {
   font-family: "Playfair Display", serif; /* Altere a fonte para "Playfair Display" */
@@ -100,7 +105,6 @@ li.nav-item a:hover {
   outline: none;
   cursor: pointer;
 }
-
 
 .navbar-toggler span {
   display: block;
@@ -162,55 +166,41 @@ li.nav-item a:hover {
   color: white;
 }
 
-/* Estilo para os cards */
-.card {
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-  margin-bottom: 30px;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.card-body {
+.container-form {
+  max-width: 800px; /* Limita a largura do contêiner do formulário */
+  margin: 0 auto; /* Centraliza o contêiner do formulário */
   padding: 20px;
-  text-align: center; /* Adicione esta linha */
+  background-color: rgba(255, 255, 255, 0.9); /* Adicione um fundo branco com transparência */
+  border-radius: 10px; /* Adicione bordas arredondadas */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); /* Adicione sombras */
 }
 
-.card-title {
-  font-family: "Mulish", sans-serif;
-  font-weight: 600;
-  font-size: 2rem;
-  color: #4a4a4a;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 1rem;
+.form-row {
+  margin-bottom: 15px; /* Adicione uma margem inferior para separar os campos */
 }
 
-.card-text {
-  font-size: 2rem;
-  color: #4a4a4a;
-  margin-bottom: 1rem;
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
 }
 
-#foto-artigo {
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-  margin-bottom: 15px;
-  object-fit: cover;
+.form-control {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 .btn-primary {
   background-color: #007bff;
   border-color: #007bff;
-  color: #fff;
-  font-weight: bold;
-  text-transform: uppercase;
+  padding: 10px 20px;
+  font-size: 16px;
   border-radius: 5px;
   transition: background-color 0.3s, border-color 0.3s;
 }
@@ -218,29 +208,8 @@ li.nav-item a:hover {
 .btn-primary:hover {
   background-color: #0056b3;
   border-color: #0056b3;
-  text-decoration: none;
 }
 
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 -15px;
-}
-
-.col-sm-6 {
-  width: 100%;
-  padding: 0 15px;
-  margin-bottom: 30px;
-}
-
-a.ler-artigo:hover {
-  background-color: #820000;
-  color: white;
-  transition: color 0.2s, background-color 0.2s;
-}
-
-@media (min-width: 576px) {
-  .col-sm-6 {
-    width: 50%;
-  }
+.btn-primary:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
 }
