@@ -1,0 +1,27 @@
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+#footer-page {
+    background: linear-gradient(135deg, #000, #1a1a1a, #003366);
+    color: white;
+    padding: 15px;
+}
+
+#footer-page a, #footer-page .nav-link, #footer-page .navbar-brand {
+    color: white;
+    transition: color 0.2s;
+    margin: 0 5px;
+    text-decoration: none; 
+}
+
+#footer-page .social-links a:not(:last-child) {
+    margin-right: 10px;
+}
+
+#footer-page a:hover {
+    color: #aaa; 
+}

@@ -1,0 +1,30 @@
+#topo {
+    background: linear-gradient(135deg, #000, #1a1a1a, #003366);
+}
+
+#topo, #topo a, #topo .nav-link, #topo .navbar-brand {
+    color: white;
+    transition: color 0.3s;
+}
+
+#topo a:hover, #topo .nav-link:hover, #topo .navbar-brand:hover {
+    color: #aaa;
+    text-decoration: underline;
+}
+
+/* Estilos para o menu dropdown */
+#topo .dropdown-menu {
+    background-color: #1a1a1a;
+}
+
+#topo .dropdown-menu a {
+    color: white;
+}
+
+#topo .dropdown-menu a:hover {
+    background-color: #003366;
+}
+
+#topo .navbar-toggler-icon {
+    filter: invert(1); /* inverte as cores, tornando o ícone branco */
+}
