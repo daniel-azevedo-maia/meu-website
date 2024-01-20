@@ -11,6 +11,7 @@ import { DireitoComponent } from './direito/direito.component';
 import { HttpClientModule } from '@angular/common/http';
 import { QuemSouEuComponent } from './quem-sou-eu/quem-sou-eu.component';
 import { OpinioesComponent } from './opinioes/opinioes.component';
+import { EmConstrucaoComponent } from './em-construcao/em-construcao.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { OpinioesComponent } from './opinioes/opinioes.component';
     FaleComigoComponent,
     DireitoComponent,
     QuemSouEuComponent,
-    OpinioesComponent
+    OpinioesComponent,
+    EmConstrucaoComponent
   ],
   imports: [
     BrowserModule,

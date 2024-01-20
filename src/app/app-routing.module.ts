@@ -5,12 +5,14 @@ import { HomeComponent } from './home/home.component';
 import { DireitoComponent } from './direito/direito.component';
 import { QuemSouEuComponent } from './quem-sou-eu/quem-sou-eu.component';
 import { OpinioesComponent } from './opinioes/opinioes.component';
+import { EmConstrucaoComponent } from './em-construcao/em-construcao.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'direito', component: DireitoComponent },
-  { path: 'opinioes', component: OpinioesComponent },
+  { path: 'direito', component: EmConstrucaoComponent },
+  { path: 'tecnologia', component: EmConstrucaoComponent },
+  { path: 'opinioes', component: EmConstrucaoComponent },
   { path: 'quem-sou-eu', component: QuemSouEuComponent },
   { path: 'fale-comigo', component: FaleComigoComponent },
   
