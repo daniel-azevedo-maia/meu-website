@@ -1,4 +1,4 @@
-package com.daniel.azevedo.meuwebsite;
+package net.daniel.azevedo.meuwebsite;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
