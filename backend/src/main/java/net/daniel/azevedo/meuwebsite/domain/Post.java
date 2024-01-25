@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -22,38 +23,34 @@ public class Post implements Serializable {
     @Column(name = "id", nullable = false)
     private Long id;
 
+        @NotNull
+        @ManyToOne
+        @JoinColumn(name = "id_autor")
+        private Autor autor;
+
     @NotBlank
     @Column(nullable = false)
     private String titulo;
 
-    @NotBlank
-    @Column(nullable = false)
     private String subtitulo;
 
     @NotBlank
     @Column(nullable = false)
+    @Lob
     private String texto;
 
     @NotBlank
     @Column(nullable = false)
     private String urlImagem;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "id_autor")
-    private Autor autor;
-
-    @NotNull
     @Column(nullable = false)
-    private LocalDateTime dataHoraCriacao;
+    private LocalDateTime dataHoraCriacao = LocalDateTime.now();
 
-    @NotNull
     @Column(nullable = false)
-    private LocalDateTime atualizacao;
+    private LocalDateTime atualizacao = LocalDateTime.now();
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Categoria categoria;
-
 
 }
