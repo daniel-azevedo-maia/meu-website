@@ -2,11 +2,10 @@ package net.daniel.azevedo.meuwebsite.service;
 
 
 import net.daniel.azevedo.meuwebsite.domain.Autor;
-import net.daniel.azevedo.meuwebsite.dto.AutorDTO;
-import net.daniel.azevedo.meuwebsite.dto.CreateAutorDTO;
-import net.daniel.azevedo.meuwebsite.dto.UpdateAutorDTO;
+import net.daniel.azevedo.meuwebsite.dto.autor.AutorDTO;
+import net.daniel.azevedo.meuwebsite.dto.autor.CreateAutorDTO;
+import net.daniel.azevedo.meuwebsite.dto.autor.UpdateAutorDTO;
 import net.daniel.azevedo.meuwebsite.repository.AutorRepository;
-import org.hibernate.sql.Update;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -42,10 +41,14 @@ public class AutorService {
     }
 
 
-    public AutorDTO buscarPorId(Long autorId) {
-        Autor autorEncontrado = buscarAutor(autorId);
-        AutorDTO autorDTO = converterAutorParaDTO(autorEncontrado);
-        return autorDTO;
+    public Autor buscarPorId(Long autorId) {
+        return autorRepository.findById(autorId)
+                .orElseThrow(() -> new RuntimeException("Autor não encontrado!"));
+    }
+
+    public AutorDTO buscarPorIdDTO(Long autorId) {
+        Autor autor = buscarPorId(autorId);
+        return converterAutorParaDTO(autor);
     }
 
     public void removerPorId(Long autorId) {

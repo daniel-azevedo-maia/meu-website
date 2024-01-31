@@ -1,4 +1,4 @@
-package net.daniel.azevedo.meuwebsite.dto;
+package net.daniel.azevedo.meuwebsite.dto.autor;
 
 import lombok.Getter;
 import lombok.Setter;

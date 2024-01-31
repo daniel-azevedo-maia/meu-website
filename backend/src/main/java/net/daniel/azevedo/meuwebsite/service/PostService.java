@@ -3,8 +3,10 @@ package net.daniel.azevedo.meuwebsite.service;
 import net.daniel.azevedo.meuwebsite.domain.Autor;
 
 import net.daniel.azevedo.meuwebsite.domain.Post;
-import net.daniel.azevedo.meuwebsite.dto.AutorDTO;
-import net.daniel.azevedo.meuwebsite.dto.PostDTO;
+import net.daniel.azevedo.meuwebsite.dto.autor.AutorDTO;
+import net.daniel.azevedo.meuwebsite.dto.post.CreatePostDTO;
+import net.daniel.azevedo.meuwebsite.dto.post.PostDTO;
+import net.daniel.azevedo.meuwebsite.dto.post.UpdatePostDTO;
 import net.daniel.azevedo.meuwebsite.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
@@ -29,50 +31,58 @@ public class PostService {
         List<PostDTO> postsDTO = new ArrayList<>();
 
         for(Post post : posts) {
-            AutorDTO autorDto = converterParaAutorDTO(post.getAutor());
             PostDTO postDTO = converterParaPostDTO(post);
-            postDTO.setAutor(autorDto);
             postsDTO.add(postDTO);
         }
 
         return postsDTO;
     }
 
-    public Post cadastrar(Post post) {
-
-        Autor autor = autorService.buscarPorId(post.getAutor().getId());
-        AutorDTO autorDTO = converterParaAutorDTO(autor);
-
-        post.setAutor(autor);
-
-        return postRepository.save(post);
-
+    public PostDTO cadastrar(CreatePostDTO createPostDTO) {
+        Post post = converterCreatePostDTOParaPost(createPostDTO);
+        Post postSalvo = postRepository.save(post);
+        return converterParaPostDTO(postSalvo);
     }
 
-    public Post buscarPorId(Long postId) {
-        return postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Post não encontrado!"));
+    public PostDTO buscarPorId(Long postId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post não encontrado!"));
+        return converterParaPostDTO(post);
     }
 
     public void removerPorId(Long postId) {
-
-        Post postEncontrado = buscarPorId(postId);
+        postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post não encontrado!"));
         postRepository.deleteById(postId);
-
     }
 
-    public Post atualizar(Post post, Long postId) {
+    public PostDTO atualizar(UpdatePostDTO updatePostDTO, Long postId) {
+        Post postExistente = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post não encontrado!"));
 
-        Post postAntigo = buscarPorId(postId);
+        postExistente.setTitulo(updatePostDTO.getTitulo());
+        postExistente.setSubtitulo(updatePostDTO.getSubtitulo());
+        postExistente.setTexto(updatePostDTO.getTexto());
+        postExistente.setCategoria(updatePostDTO.getCategoria());
+        postExistente.setUrlImagem(updatePostDTO.getUrlImagem());
+        postExistente.setAtualizacao(LocalDateTime.now());
 
-        postAntigo.setTitulo(post.getTitulo());
-        postAntigo.setSubtitulo(post.getSubtitulo());
-        postAntigo.setTexto(post.getTexto());
-        postAntigo.setCategoria(post.getCategoria());
-        postAntigo.setUrlImagem(post.getUrlImagem());
-        postAntigo.setAtualizacao(LocalDateTime.now());
+        Post postAtualizado = postRepository.save(postExistente);
+        return converterParaPostDTO(postAtualizado);
+    }
 
-        return cadastrar(postAntigo);
+    private Post converterCreatePostDTOParaPost(CreatePostDTO createPostDTO) {
+        Post post = new Post();
+        post.setTitulo(createPostDTO.getTitulo());
+        post.setSubtitulo(createPostDTO.getSubtitulo());
+        post.setTexto(createPostDTO.getTexto());
+        post.setUrlImagem(createPostDTO.getUrlImagem());
+        post.setCategoria(createPostDTO.getCategoria());
 
+        Autor autor = autorService.buscarPorId(createPostDTO.getAutorId());
+        post.setAutor(autor);
+
+        return post;
     }
 
 
@@ -88,6 +98,7 @@ public class PostService {
         postDTO.setDataHoraCriacao(post.getDataHoraCriacao());
         postDTO.setAtualizacao(post.getAtualizacao());
         postDTO.setCategoria(post.getCategoria());
+        postDTO.setAutorId(post.getAutor().getId());
 
         return postDTO;
     }

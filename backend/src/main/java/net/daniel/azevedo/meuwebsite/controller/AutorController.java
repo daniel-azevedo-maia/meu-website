@@ -1,10 +1,9 @@
 package net.daniel.azevedo.meuwebsite.controller;
 
 import jakarta.validation.Valid;
-import net.daniel.azevedo.meuwebsite.domain.Autor;
-import net.daniel.azevedo.meuwebsite.dto.AutorDTO;
-import net.daniel.azevedo.meuwebsite.dto.CreateAutorDTO;
-import net.daniel.azevedo.meuwebsite.dto.UpdateAutorDTO;
+import net.daniel.azevedo.meuwebsite.dto.autor.AutorDTO;
+import net.daniel.azevedo.meuwebsite.dto.autor.CreateAutorDTO;
+import net.daniel.azevedo.meuwebsite.dto.autor.UpdateAutorDTO;
 import net.daniel.azevedo.meuwebsite.service.AutorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +43,7 @@ public class AutorController {
 
     @GetMapping("/{autorId}")
     public ResponseEntity<?> buscarPorId(@PathVariable Long autorId) {
-        AutorDTO autorEncontrado = autorService.buscarPorId(autorId);
+        AutorDTO autorEncontrado = autorService.buscarPorIdDTO(autorId);
 
         return ResponseEntity.ok(autorEncontrado);
     }
