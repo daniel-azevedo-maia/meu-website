@@ -1,6 +1,7 @@
 package net.daniel.azevedo.meuwebsite.service;
 
 
+import jakarta.transaction.Transactional;
 import net.daniel.azevedo.meuwebsite.domain.Autor;
 import net.daniel.azevedo.meuwebsite.dto.autor.AutorDTO;
 import net.daniel.azevedo.meuwebsite.dto.autor.CreateAutorDTO;
@@ -33,6 +34,7 @@ public class AutorService {
         return autoresDTO;
     }
 
+    @Transactional
     public AutorDTO cadastrar(CreateAutorDTO createAutorDTO) {
         Autor autor = converterCreateAutorDTOParaAutor(createAutorDTO);
         Autor autorCadastrado = autorRepository.save(autor);
@@ -40,6 +42,9 @@ public class AutorService {
         return autorCadastradoDTO;
     }
 
+    public Autor salvar(Autor autor) {
+        return autorRepository.save(autor);
+    }
 
     public Autor buscarPorId(Long autorId) {
         return autorRepository.findById(autorId)
@@ -51,6 +56,7 @@ public class AutorService {
         return converterAutorParaDTO(autor);
     }
 
+    @Transactional
     public void removerPorId(Long autorId) {
 
         Autor autorEncontrado = buscarAutor(autorId);
@@ -58,6 +64,7 @@ public class AutorService {
 
     }
 
+    @Transactional
     public AutorDTO atualizar(UpdateAutorDTO updateAutorDTO, Long autorId) {
 
         Autor autorExistente = autorRepository.findById(autorId).orElseThrow(() -> new RuntimeException("Autor não encontrado!"));
@@ -81,6 +88,7 @@ public class AutorService {
         autor.setNome(createAutorDTO.getNome());
         autor.setUsername(createAutorDTO.getUsername());
         autor.setPassword(createAutorDTO.getPassword());
+        autor.setPosts(createAutorDTO.getPosts());
 
         return autor;
     }
@@ -89,6 +97,7 @@ public class AutorService {
         AutorDTO autorDTO = new AutorDTO();
         autorDTO.setId(autor.getId());
         autorDTO.setNome(autor.getNome());
+        autorDTO.setPosts(autor.getPosts());
         return autorDTO;
     }
 

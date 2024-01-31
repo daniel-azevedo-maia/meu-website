@@ -1,5 +1,6 @@
 package net.daniel.azevedo.meuwebsite.service;
 
+import jakarta.transaction.Transactional;
 import net.daniel.azevedo.meuwebsite.domain.Autor;
 
 import net.daniel.azevedo.meuwebsite.domain.Post;
@@ -38,9 +39,18 @@ public class PostService {
         return postsDTO;
     }
 
+    @Transactional
     public PostDTO cadastrar(CreatePostDTO createPostDTO) {
         Post post = converterCreatePostDTOParaPost(createPostDTO);
+
+        Autor autor = autorService.buscarPorId(createPostDTO.getAutorId());
+        post.setAutor(autor);
+
+        // Ao cadastrar um novo Post e associá-lo a um Autor,
+        // apenas definir o Autor no Post e salvar o Post é suficiente
+
         Post postSalvo = postRepository.save(post);
+
         return converterParaPostDTO(postSalvo);
     }
 
@@ -50,12 +60,14 @@ public class PostService {
         return converterParaPostDTO(post);
     }
 
+    @Transactional
     public void removerPorId(Long postId) {
         postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post não encontrado!"));
         postRepository.deleteById(postId);
     }
 
+    @Transactional
     public PostDTO atualizar(UpdatePostDTO updatePostDTO, Long postId) {
         Post postExistente = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post não encontrado!"));
@@ -78,9 +90,6 @@ public class PostService {
         post.setTexto(createPostDTO.getTexto());
         post.setUrlImagem(createPostDTO.getUrlImagem());
         post.setCategoria(createPostDTO.getCategoria());
-
-        Autor autor = autorService.buscarPorId(createPostDTO.getAutorId());
-        post.setAutor(autor);
 
         return post;
     }
