@@ -2,6 +2,9 @@ package net.daniel.azevedo.meuwebsite.controller;
 
 import jakarta.validation.Valid;
 import net.daniel.azevedo.meuwebsite.domain.Autor;
+import net.daniel.azevedo.meuwebsite.dto.AutorDTO;
+import net.daniel.azevedo.meuwebsite.dto.CreateAutorDTO;
+import net.daniel.azevedo.meuwebsite.dto.UpdateAutorDTO;
 import net.daniel.azevedo.meuwebsite.service.AutorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,28 +22,29 @@ public class AutorController {
         this.autorService = autorService;
     }
 
+    @GetMapping
+    public ResponseEntity<List<AutorDTO>> listar() {
+        List<AutorDTO> autoresDTO = autorService.listar();
+        return ResponseEntity.ok(autoresDTO);
+    }
+
     @PostMapping
-    public ResponseEntity<Autor> cadastrar(@RequestBody @Valid Autor autor) {
-        Autor autorPersistido = autorService.cadastrar(autor);
-        return ResponseEntity.status(HttpStatus.CREATED).body(autorPersistido);
+    public ResponseEntity<AutorDTO> cadastrar(@RequestBody @Valid CreateAutorDTO createAutorDTO) {
+        AutorDTO autorDTO = autorService.cadastrar(createAutorDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(autorDTO);
 
     }
 
     @PutMapping("{autorId}")
-    public ResponseEntity<?> atualizar(@RequestBody @Valid Autor autor, @PathVariable Long autorId) {
-        Autor autorAtualizado = autorService.atualizar(autor, autorId);
+    public ResponseEntity<AutorDTO> atualizar(@RequestBody @Valid UpdateAutorDTO updateAutorDTO,
+                                              @PathVariable Long autorId) {
+        AutorDTO autorAtualizado = autorService.atualizar(updateAutorDTO, autorId);
         return ResponseEntity.ok(autorAtualizado);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Autor>> listar() {
-        List<Autor> autores = autorService.listar();
-        return ResponseEntity.ok(autores);
     }
 
     @GetMapping("/{autorId}")
     public ResponseEntity<?> buscarPorId(@PathVariable Long autorId) {
-        Autor autorEncontrado = autorService.buscarPorId(autorId);
+        AutorDTO autorEncontrado = autorService.buscarPorId(autorId);
 
         return ResponseEntity.ok(autorEncontrado);
     }
@@ -53,5 +57,6 @@ public class AutorController {
         return ResponseEntity.noContent().build();
 
     }
+
 
 }

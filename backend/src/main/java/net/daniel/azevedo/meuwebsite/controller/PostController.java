@@ -2,6 +2,7 @@ package net.daniel.azevedo.meuwebsite.controller;
 
 import jakarta.validation.Valid;
 import net.daniel.azevedo.meuwebsite.domain.Post;
+import net.daniel.azevedo.meuwebsite.dto.PostDTO;
 import net.daniel.azevedo.meuwebsite.service.PostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,8 +34,8 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Post>> listar() {
-        List<Post> posts = postService.listar();
+    public ResponseEntity<List<PostDTO>> listar() {
+        List<PostDTO> posts = postService.listar();
         return ResponseEntity.ok(posts);
     }
 

@@ -23,10 +23,10 @@ public class Post implements Serializable {
     @Column(name = "id", nullable = false)
     private Long id;
 
-        @NotNull
-        @ManyToOne
-        @JoinColumn(name = "id_autor")
-        private Autor autor;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "id_autor")
+    private Autor autor;
 
     @NotBlank
     @Column(nullable = false)

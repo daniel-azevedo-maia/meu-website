@@ -3,10 +3,13 @@ package net.daniel.azevedo.meuwebsite.service;
 import net.daniel.azevedo.meuwebsite.domain.Autor;
 
 import net.daniel.azevedo.meuwebsite.domain.Post;
+import net.daniel.azevedo.meuwebsite.dto.AutorDTO;
+import net.daniel.azevedo.meuwebsite.dto.PostDTO;
 import net.daniel.azevedo.meuwebsite.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,13 +23,26 @@ public class PostService {
         this.autorService = autorService;
     }
 
-    public List<Post> listar() {
-        return postRepository.findAll();
+    public List<PostDTO> listar() {
+
+        List<Post> posts = postRepository.findAll();
+        List<PostDTO> postsDTO = new ArrayList<>();
+
+        for(Post post : posts) {
+            AutorDTO autorDto = converterParaAutorDTO(post.getAutor());
+            PostDTO postDTO = converterParaPostDTO(post);
+            postDTO.setAutor(autorDto);
+            postsDTO.add(postDTO);
+        }
+
+        return postsDTO;
     }
 
     public Post cadastrar(Post post) {
 
         Autor autor = autorService.buscarPorId(post.getAutor().getId());
+        AutorDTO autorDTO = converterParaAutorDTO(autor);
+
         post.setAutor(autor);
 
         return postRepository.save(post);
@@ -58,4 +74,30 @@ public class PostService {
         return cadastrar(postAntigo);
 
     }
+
+
+    private PostDTO converterParaPostDTO(Post post) {
+
+        PostDTO postDTO = new PostDTO();
+
+        postDTO.setId(post.getId());
+        postDTO.setTitulo(post.getTitulo());
+        postDTO.setSubtitulo(post.getSubtitulo());
+        postDTO.setTexto(post.getTexto());
+        postDTO.setUrlImagem(post.getUrlImagem());
+        postDTO.setDataHoraCriacao(post.getDataHoraCriacao());
+        postDTO.setAtualizacao(post.getAtualizacao());
+        postDTO.setCategoria(post.getCategoria());
+
+        return postDTO;
+    }
+
+    private AutorDTO converterParaAutorDTO(Autor autor) {
+        AutorDTO autorDTO = new AutorDTO();
+        autorDTO.setId(autor.getId());
+        autorDTO.setNome(autor.getNome());
+
+        return autorDTO;
+    }
+
 }
