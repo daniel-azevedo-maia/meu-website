@@ -34,12 +34,13 @@ public class AutorService {
         return autoresDTO;
     }
 
-    @Transactional
     public AutorDTO cadastrar(CreateAutorDTO createAutorDTO) {
+
         Autor autor = converterCreateAutorDTOParaAutor(createAutorDTO);
         Autor autorCadastrado = autorRepository.save(autor);
         AutorDTO autorCadastradoDTO = converterAutorParaDTO(autorCadastrado);
         return autorCadastradoDTO;
+
     }
 
     public Autor salvar(Autor autor) {
@@ -56,7 +57,6 @@ public class AutorService {
         return converterAutorParaDTO(autor);
     }
 
-    @Transactional
     public void removerPorId(Long autorId) {
 
         Autor autorEncontrado = buscarAutor(autorId);
@@ -88,16 +88,17 @@ public class AutorService {
         autor.setNome(createAutorDTO.getNome());
         autor.setUsername(createAutorDTO.getUsername());
         autor.setPassword(createAutorDTO.getPassword());
-        autor.setPosts(createAutorDTO.getPosts());
+        autor.setPosts(new ArrayList<>());
 
         return autor;
     }
 
     private AutorDTO converterAutorParaDTO(Autor autor) {
+
         AutorDTO autorDTO = new AutorDTO();
         autorDTO.setId(autor.getId());
         autorDTO.setNome(autor.getNome());
-        autorDTO.setPosts(autor.getPosts());
+
         return autorDTO;
     }
 

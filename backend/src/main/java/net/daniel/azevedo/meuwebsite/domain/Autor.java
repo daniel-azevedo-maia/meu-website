@@ -19,6 +19,6 @@ public class Autor extends Usuario implements Serializable {
 
     @JsonIgnore
     @OneToMany(mappedBy = "autor")  // Post é a proprietária do relacionamento, pois contém a chave estrangeira de Autor
-    private List<Post> posts = new ArrayList<Post>();
+    private List<Post> posts;
 
 }

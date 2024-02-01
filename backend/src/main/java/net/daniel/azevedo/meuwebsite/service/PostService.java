@@ -39,8 +39,8 @@ public class PostService {
         return postsDTO;
     }
 
-    @Transactional
     public PostDTO cadastrar(CreatePostDTO createPostDTO) {
+
         Post post = converterCreatePostDTOParaPost(createPostDTO);
 
         Autor autor = autorService.buscarPorId(createPostDTO.getAutorId());
@@ -52,6 +52,7 @@ public class PostService {
         Post postSalvo = postRepository.save(post);
 
         return converterParaPostDTO(postSalvo);
+
     }
 
     public PostDTO buscarPorId(Long postId) {
@@ -60,14 +61,12 @@ public class PostService {
         return converterParaPostDTO(post);
     }
 
-    @Transactional
     public void removerPorId(Long postId) {
         postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post não encontrado!"));
         postRepository.deleteById(postId);
     }
 
-    @Transactional
     public PostDTO atualizar(UpdatePostDTO updatePostDTO, Long postId) {
         Post postExistente = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post não encontrado!"));
