@@ -9,6 +9,7 @@ import net.daniel.azevedo.meuwebsite.repository.PostRepository;
 import net.daniel.azevedo.meuwebsite.repository.UsuarioRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -34,6 +35,7 @@ public class PostService {
         return postsResponseDTO;
     }
 
+    @Transactional
     public PostResponseDTO cadastrar(CreatePostDTO createPostDTO) {
 
         Post post = converterParaPost(createPostDTO);
@@ -57,6 +59,20 @@ public class PostService {
         return converterParaPostResponseDTO(post);
     }
 
+    public List<PostResponseDTO> buscarPostsPorUsuario(Long usuarioId) {
+
+        Usuario usuario = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado!"));
+
+        List<Post> postsUsuario = usuario.getPosts();
+
+        List<PostResponseDTO> posts = postsUsuario.stream().map(post
+                -> converterParaPostResponseDTO(post)).collect(Collectors.toList());
+
+        return posts;
+    }
+
+    @Transactional
     public PostResponseDTO atualizar(UpdatePostDTO updatePostDTO, Long postId) {
 
         Post postParaAtualizar = postRepository.findById(postId)
@@ -70,6 +86,7 @@ public class PostService {
 
     }
 
+    @Transactional
     public void removerPorId(Long postId) {
         postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post não encontrado!"));
@@ -78,7 +95,6 @@ public class PostService {
 
     // Métodos para manipulação de DTOs -------------------------------------
 
-    // Usado
     private PostResponseDTO converterParaPostResponseDTO(Post post) {
 
         PostResponseDTO postResponseDTO = new PostResponseDTO();
@@ -89,7 +105,6 @@ public class PostService {
 
     }
 
-    // Usado
     private Post converterParaPost(CreatePostDTO createPostDTO) {
 
         Post post = new Post();
@@ -103,6 +118,5 @@ public class PostService {
         return post;
 
     }
-
 
 }

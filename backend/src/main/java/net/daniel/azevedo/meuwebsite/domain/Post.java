@@ -35,8 +35,7 @@ public class Post implements Serializable {
     private String subtitulo;
 
     @NotBlank
-    @Column(nullable = false)
-    @Lob
+    @Column(nullable = false, length = 10_000)
     private String texto;
 
     @NotBlank

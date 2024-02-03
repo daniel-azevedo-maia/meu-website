@@ -1,6 +1,7 @@
 package net.daniel.azevedo.meuwebsite.service;
 
 
+import jakarta.transaction.Transactional;
 import net.daniel.azevedo.meuwebsite.domain.Usuario;
 import net.daniel.azevedo.meuwebsite.dto.usuario.UsuarioDTO;
 import net.daniel.azevedo.meuwebsite.dto.usuario.CreateUsuarioDTO;
@@ -35,6 +36,7 @@ public class UsuarioService {
 
     }
 
+    @Transactional
     public UsuarioResponseDTO cadastrar(CreateUsuarioDTO createUsuarioDTO) {
 
         Usuario usuario = converterParaUsuario(createUsuarioDTO);
@@ -57,12 +59,14 @@ public class UsuarioService {
 
     }
 
+    @Transactional
     public void removerPorId(Long usuarioId) {
-
         Usuario usuarioEncontrado = buscarUsuario(usuarioId);
         usuarioRepository.deleteById(usuarioId);
 
     }
+
+    @Transactional
     public UsuarioResponseDTO atualizar(UpdateUsuarioDTO updateUsuarioDTO, Long usuarioId) {
 
         Usuario usuarioParaAtualizar = usuarioRepository.findById(usuarioId).orElseThrow(()

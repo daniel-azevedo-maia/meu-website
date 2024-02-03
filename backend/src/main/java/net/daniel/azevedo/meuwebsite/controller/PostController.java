@@ -41,6 +41,12 @@ public class PostController {
         return ResponseEntity.ok(postEncontrado);
     }
 
+    @GetMapping("/por-usuario")
+    public ResponseEntity<List<PostResponseDTO>> buscarPostsUsuario(@RequestParam Long usuarioId) {
+        List<PostResponseDTO> postsEncontrados = postService.buscarPostsPorUsuario(usuarioId);
+        return ResponseEntity.ok(postsEncontrados);
+    }
+
     @PutMapping("{postId}")
     public ResponseEntity<?> atualizar(@RequestBody @Valid UpdatePostDTO updatePostDTO, @PathVariable Long postId) {
         PostResponseDTO postAtualizado = postService.atualizar(updatePostDTO, postId);
