@@ -1,11 +1,10 @@
 package net.daniel.azevedo.meuwebsite.controller;
 
 import jakarta.validation.Valid;
-import net.daniel.azevedo.meuwebsite.domain.Post;
-import net.daniel.azevedo.meuwebsite.dto.autor.CreateAutorDTO;
 import net.daniel.azevedo.meuwebsite.dto.post.CreatePostDTO;
 import net.daniel.azevedo.meuwebsite.dto.post.PostDTO;
 import net.daniel.azevedo.meuwebsite.dto.post.UpdatePostDTO;
+import net.daniel.azevedo.meuwebsite.dto.usuario.PostResponseDTO;
 import net.daniel.azevedo.meuwebsite.service.PostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,30 +23,29 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PostDTO>> listar() {
-        List<PostDTO> posts = postService.listar();
+    public ResponseEntity<List<PostResponseDTO>> listar() {
+        List<PostResponseDTO> posts = postService.listar();
         return ResponseEntity.ok(posts);
     }
 
     @PostMapping
-    public ResponseEntity<PostDTO> cadastrar(@RequestBody @Valid CreatePostDTO createPostDTO) {
-        PostDTO postCriado = postService.cadastrar(createPostDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(postCriado);
+    public ResponseEntity<PostResponseDTO> cadastrar(@RequestBody @Valid CreatePostDTO createPostDTO) {
+        PostResponseDTO postCadastrado = postService.cadastrar(createPostDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(postCadastrado);
 
+    }
+
+    @GetMapping("/{postId}")
+    public ResponseEntity<PostResponseDTO> buscarPorId(@PathVariable Long postId) {
+        PostResponseDTO postEncontrado = postService.buscarPorId(postId);
+        return ResponseEntity.ok(postEncontrado);
     }
 
     @PutMapping("{postId}")
     public ResponseEntity<?> atualizar(@RequestBody @Valid UpdatePostDTO updatePostDTO, @PathVariable Long postId) {
-        PostDTO postAtualizado = postService.atualizar(updatePostDTO, postId);
+        PostResponseDTO postAtualizado = postService.atualizar(updatePostDTO, postId);
         return ResponseEntity.ok(postAtualizado);
     }
-
-    @GetMapping("/{postId}")
-    public ResponseEntity<PostDTO> buscarPorId(@PathVariable Long postId) {
-        PostDTO postEncontrado = postService.buscarPorId(postId);
-        return ResponseEntity.ok(postEncontrado);
-    }
-
 
     @DeleteMapping("{postId}")
     public ResponseEntity<?> removerPorId(@PathVariable Long postId) {

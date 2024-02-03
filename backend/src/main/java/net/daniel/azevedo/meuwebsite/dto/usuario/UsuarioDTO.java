@@ -1,4 +1,4 @@
-package net.daniel.azevedo.meuwebsite.dto.autor;
+package net.daniel.azevedo.meuwebsite.dto.usuario;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,10 +9,12 @@ import java.util.List;
 
 @Getter
 @Setter
-public class AutorDTO {
+public class UsuarioDTO {
 
     private Long id;
     private String nome;
-    private List<Post> posts = new ArrayList<Post>();
+    private String username;
+    private String password;
+    private List<Post> posts;
 
 }

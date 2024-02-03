@@ -1,64 +1,73 @@
 package net.daniel.azevedo.meuwebsite.service;
 
-import jakarta.transaction.Transactional;
-import net.daniel.azevedo.meuwebsite.domain.Autor;
-
 import net.daniel.azevedo.meuwebsite.domain.Post;
-import net.daniel.azevedo.meuwebsite.dto.autor.AutorDTO;
+import net.daniel.azevedo.meuwebsite.domain.Usuario;
 import net.daniel.azevedo.meuwebsite.dto.post.CreatePostDTO;
-import net.daniel.azevedo.meuwebsite.dto.post.PostDTO;
 import net.daniel.azevedo.meuwebsite.dto.post.UpdatePostDTO;
+import net.daniel.azevedo.meuwebsite.dto.usuario.PostResponseDTO;
 import net.daniel.azevedo.meuwebsite.repository.PostRepository;
+import net.daniel.azevedo.meuwebsite.repository.UsuarioRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
 
     private PostRepository postRepository;
-    private AutorService autorService;
+    private UsuarioRepository usuarioRepository;
 
-    public PostService(PostRepository postRepository, AutorService autorService) {
+    public PostService(PostRepository postRepository, UsuarioRepository usuarioRepository) {
         this.postRepository = postRepository;
-        this.autorService = autorService;
+        this.usuarioRepository = usuarioRepository;
     }
 
-    public List<PostDTO> listar() {
+    public List<PostResponseDTO> listar() {
 
         List<Post> posts = postRepository.findAll();
-        List<PostDTO> postsDTO = new ArrayList<>();
+        List<PostResponseDTO> postsResponseDTO = posts.stream().map(post
+                -> converterParaPostResponseDTO(post)).collect(Collectors.toList());
 
-        for(Post post : posts) {
-            PostDTO postDTO = converterParaPostDTO(post);
-            postsDTO.add(postDTO);
-        }
-
-        return postsDTO;
+        return postsResponseDTO;
     }
 
-    public PostDTO cadastrar(CreatePostDTO createPostDTO) {
+    public PostResponseDTO cadastrar(CreatePostDTO createPostDTO) {
 
-        Post post = converterCreatePostDTOParaPost(createPostDTO);
+        Post post = converterParaPost(createPostDTO);
+        Long usuarioId = createPostDTO.getUsuarioId();
 
-        Autor autor = autorService.buscarPorId(createPostDTO.getAutorId());
-        post.setAutor(autor);
+        Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(()
+                -> new RuntimeException("Usuário não encontrado!"));
 
-        // Ao cadastrar um novo Post e associá-lo a um Autor,
-        // apenas definir o Autor no Post e salvar o Post é suficiente
+        post.setUsuario(usuario);
+        post.setDataHoraCriacao(LocalDateTime.now());
 
         Post postSalvo = postRepository.save(post);
 
-        return converterParaPostDTO(postSalvo);
+        return converterParaPostResponseDTO(postSalvo);
 
     }
 
-    public PostDTO buscarPorId(Long postId) {
+    public PostResponseDTO buscarPorId(Long postId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post não encontrado!"));
-        return converterParaPostDTO(post);
+        return converterParaPostResponseDTO(post);
+    }
+
+    public PostResponseDTO atualizar(UpdatePostDTO updatePostDTO, Long postId) {
+
+        Post postParaAtualizar = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post não encontrado!"));
+
+        BeanUtils.copyProperties(updatePostDTO, postParaAtualizar, "id");
+
+        Post postAtualizado = postRepository.save(postParaAtualizar);
+
+        return converterParaPostResponseDTO(postAtualizado);
+
     }
 
     public void removerPorId(Long postId) {
@@ -67,23 +76,24 @@ public class PostService {
         postRepository.deleteById(postId);
     }
 
-    public PostDTO atualizar(UpdatePostDTO updatePostDTO, Long postId) {
-        Post postExistente = postRepository.findById(postId)
-                .orElseThrow(() -> new RuntimeException("Post não encontrado!"));
+    // Métodos para manipulação de DTOs -------------------------------------
 
-        postExistente.setTitulo(updatePostDTO.getTitulo());
-        postExistente.setSubtitulo(updatePostDTO.getSubtitulo());
-        postExistente.setTexto(updatePostDTO.getTexto());
-        postExistente.setCategoria(updatePostDTO.getCategoria());
-        postExistente.setUrlImagem(updatePostDTO.getUrlImagem());
-        postExistente.setAtualizacao(LocalDateTime.now());
+    // Usado
+    private PostResponseDTO converterParaPostResponseDTO(Post post) {
 
-        Post postAtualizado = postRepository.save(postExistente);
-        return converterParaPostDTO(postAtualizado);
+        PostResponseDTO postResponseDTO = new PostResponseDTO();
+
+        postResponseDTO.setId(post.getId());
+        postResponseDTO.setTitulo(post.getTitulo());
+        return postResponseDTO;
+
     }
 
-    private Post converterCreatePostDTOParaPost(CreatePostDTO createPostDTO) {
+    // Usado
+    private Post converterParaPost(CreatePostDTO createPostDTO) {
+
         Post post = new Post();
+
         post.setTitulo(createPostDTO.getTitulo());
         post.setSubtitulo(createPostDTO.getSubtitulo());
         post.setTexto(createPostDTO.getTexto());
@@ -91,32 +101,8 @@ public class PostService {
         post.setCategoria(createPostDTO.getCategoria());
 
         return post;
+
     }
 
-
-    private PostDTO converterParaPostDTO(Post post) {
-
-        PostDTO postDTO = new PostDTO();
-
-        postDTO.setId(post.getId());
-        postDTO.setTitulo(post.getTitulo());
-        postDTO.setSubtitulo(post.getSubtitulo());
-        postDTO.setTexto(post.getTexto());
-        postDTO.setUrlImagem(post.getUrlImagem());
-        postDTO.setDataHoraCriacao(post.getDataHoraCriacao());
-        postDTO.setAtualizacao(post.getAtualizacao());
-        postDTO.setCategoria(post.getCategoria());
-        postDTO.setAutorId(post.getAutor().getId());
-
-        return postDTO;
-    }
-
-    private AutorDTO converterParaAutorDTO(Autor autor) {
-        AutorDTO autorDTO = new AutorDTO();
-        autorDTO.setId(autor.getId());
-        autorDTO.setNome(autor.getNome());
-
-        return autorDTO;
-    }
 
 }

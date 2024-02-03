@@ -1,12 +1,14 @@
-package net.daniel.azevedo.meuwebsite.dto.autor;
+package net.daniel.azevedo.meuwebsite.dto.usuario;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class UpdateAutorDTO {
+public class UsuarioResponseDTO {
+
+    private Long id;
     private String nome;
     private String username;
-    private String password;
+
 }

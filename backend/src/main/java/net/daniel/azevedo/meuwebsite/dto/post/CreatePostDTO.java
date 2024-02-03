@@ -8,7 +8,7 @@ import net.daniel.azevedo.meuwebsite.domain.Categoria;
 @Setter
 public class CreatePostDTO {
 
-    private Long autorId;
+    private Long usuarioId;
     private String titulo;
     private String subtitulo;
     private String texto;

@@ -1,17 +1,18 @@
 package net.daniel.azevedo.meuwebsite.domain;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "usuario")
 public class Usuario implements Serializable {
 
@@ -35,6 +36,10 @@ public class Usuario implements Serializable {
     private String password;
 
     @Column(nullable = false)
-    private LocalDateTime dataCadastro = LocalDateTime.now();
+    private LocalDateTime dataCadastro;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "usuario")  // Post é a proprietária do relacionamento, pois contém a chave estrangeira de Usuario
+    private List<Post> posts;
 
 }

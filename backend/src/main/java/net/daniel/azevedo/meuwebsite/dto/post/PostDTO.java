@@ -9,8 +9,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class PostDTO {
+
     private Long id;
-    private Long autorId;
+    private Long usuarioId;
     private String titulo;
     private String subtitulo;
     private String texto;
@@ -18,5 +19,6 @@ public class PostDTO {
     private LocalDateTime dataHoraCriacao;
     private LocalDateTime atualizacao;
     private Categoria categoria;
+
 }
 

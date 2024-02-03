@@ -25,8 +25,8 @@ public class Post implements Serializable {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "id_autor")
-    private Autor autor;
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
 
     @NotBlank
     @Column(nullable = false)
@@ -44,7 +44,7 @@ public class Post implements Serializable {
     private String urlImagem;
 
     @Column(nullable = false)
-    private LocalDateTime dataHoraCriacao = LocalDateTime.now();
+    private LocalDateTime dataHoraCriacao;
 
     @Column(nullable = false)
     private LocalDateTime atualizacao = LocalDateTime.now();
