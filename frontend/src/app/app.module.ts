@@ -12,6 +12,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { QuemSouEuComponent } from './quem-sou-eu/quem-sou-eu.component';
 import { OpinioesComponent } from './opinioes/opinioes.component';
 import { EmConstrucaoComponent } from './em-construcao/em-construcao.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { FormsModule } from '@angular/forms';
+import { NovoPostComponent } from './novo-post/novo-post.component';
 
 @NgModule({
   declarations: [
@@ -23,12 +26,16 @@ import { EmConstrucaoComponent } from './em-construcao/em-construcao.component';
     DireitoComponent,
     QuemSouEuComponent,
     OpinioesComponent,
-    EmConstrucaoComponent
+    EmConstrucaoComponent,
+    NovoPostComponent
+    
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    CKEditorModule
   ],
   providers: [],
   bootstrap: [AppComponent]
