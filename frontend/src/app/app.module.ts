@@ -3,39 +3,26 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { HomeComponent } from './home/home.component';
-import { FooterComponent } from './footer/footer.component';
-import { FaleComigoComponent } from './fale-comigo/fale-comigo.component';
-import { DireitoComponent } from './direito/direito.component';
+
 import { HttpClientModule } from '@angular/common/http';
-import { QuemSouEuComponent } from './quem-sou-eu/quem-sou-eu.component';
-import { OpinioesComponent } from './opinioes/opinioes.component';
-import { EmConstrucaoComponent } from './em-construcao/em-construcao.component';
+
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { FormsModule } from '@angular/forms';
-import { NovoPostComponent } from './novo-post/novo-post.component';
+import { FeaturesModule } from './features/features.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
-    HomeComponent,
-    FooterComponent,
-    FaleComigoComponent,
-    DireitoComponent,
-    QuemSouEuComponent,
-    OpinioesComponent,
-    EmConstrucaoComponent,
-    NovoPostComponent
-    
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    CKEditorModule
+    CKEditorModule,
+    FeaturesModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

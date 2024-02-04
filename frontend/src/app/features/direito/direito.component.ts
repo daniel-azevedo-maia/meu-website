@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DireitoService } from '../services/direito.service';
 
 @Component({
   selector: 'app-direito',
@@ -10,13 +9,9 @@ export class DireitoComponent implements OnInit {
 
   posts: any;
 
-  constructor(private direitoService: DireitoService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.direitoService.listarPosts().subscribe(posts => {
-      this.posts = posts;
-    });
-  }
+  ngOnInit(): void {}
 
   titulo = "Meu livro - Introdução à Advocacia Trabalhista";
   subtitulo = "Guia para Advogados Iniciantes";

@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FaleComigoComponent } from './fale-comigo/fale-comigo.component';
-import { HomeComponent } from './home/home.component';
-import { QuemSouEuComponent } from './quem-sou-eu/quem-sou-eu.component';
-import { EmConstrucaoComponent } from './em-construcao/em-construcao.component';
-import { NovoPostComponent } from './novo-post/novo-post.component';
+import { FaleComigoComponent } from './features/fale-comigo/fale-comigo.component';
+import { QuemSouEuComponent } from './features/quem-sou-eu/quem-sou-eu.component';
+import { EmConstrucaoComponent } from './features/em-construcao/em-construcao.component';
+import { NovoPostComponent } from './features/novo-post/novo-post.component';
+import { HomeComponent } from './features/home/home.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
