@@ -7,11 +7,14 @@ import net.daniel.azevedo.meuwebsite.dto.usuario.UsuarioDTO;
 import net.daniel.azevedo.meuwebsite.dto.usuario.CreateUsuarioDTO;
 import net.daniel.azevedo.meuwebsite.dto.usuario.UpdateUsuarioDTO;
 import net.daniel.azevedo.meuwebsite.dto.usuario.UsuarioResponseDTO;
+import net.daniel.azevedo.meuwebsite.exception.usuario.UsuarioTemPostsException;
+import net.daniel.azevedo.meuwebsite.exception.usuario.UsuarioNotFoundException;
 import net.daniel.azevedo.meuwebsite.repository.UsuarioRepository;
 import org.springframework.beans.BeanUtils;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,9 +53,7 @@ public class UsuarioService {
 
     public UsuarioResponseDTO buscarPorId(Long usuarioId) {
 
-        Usuario usuarioEncontrado = usuarioRepository.findById(usuarioId)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado!"));
-
+        Usuario usuarioEncontrado = executarBuscaUsuario(usuarioId);
         UsuarioResponseDTO usuarioResponseDTO = converterParaUsuarioResponseDTO(usuarioEncontrado);
 
         return usuarioResponseDTO;
@@ -61,16 +62,25 @@ public class UsuarioService {
 
     @Transactional
     public void removerPorId(Long usuarioId) {
-        Usuario usuarioEncontrado = buscarUsuario(usuarioId);
-        usuarioRepository.deleteById(usuarioId);
+        Usuario usuarioEncontrado = executarBuscaUsuario(usuarioId);
 
+        if (!usuarioEncontrado.getPosts().isEmpty()) {
+            throw new UsuarioTemPostsException();
+        }
+
+        try {
+            usuarioRepository.deleteById(usuarioId);
+        } catch (EmptyResultDataAccessException e) {
+            throw new UsuarioNotFoundException(usuarioId);
+        }
     }
+
 
     @Transactional
     public UsuarioResponseDTO atualizar(UpdateUsuarioDTO updateUsuarioDTO, Long usuarioId) {
 
         Usuario usuarioParaAtualizar = usuarioRepository.findById(usuarioId).orElseThrow(()
-                -> new RuntimeException("Usuário não encontrado!"));
+                -> new UsuarioNotFoundException(usuarioId));
 
         BeanUtils.copyProperties(updateUsuarioDTO, usuarioParaAtualizar, "id");
         Usuario usuarioAtualizado = usuarioRepository.save(usuarioParaAtualizar);
@@ -106,17 +116,9 @@ public class UsuarioService {
 
     }
 
-    private UsuarioDTO converterUsuarioParaDTO(Usuario usuario) {
-
-        UsuarioDTO usuarioDTO = new UsuarioDTO();
-        usuarioDTO.setId(usuario.getId());
-        usuarioDTO.setNome(usuario.getNome());
-
-        return usuarioDTO;
-    }
-
-    private Usuario buscarUsuario(Long usuarioId) {
-        return usuarioRepository.findById(usuarioId).orElseThrow(() -> new RuntimeException("Usuário não encontrado!"));
+    private Usuario executarBuscaUsuario(Long usuarioId) {
+        return usuarioRepository.findById(usuarioId).orElseThrow(()
+                -> new UsuarioNotFoundException(usuarioId));
     }
 
 

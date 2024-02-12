@@ -2,9 +2,8 @@ package net.daniel.azevedo.meuwebsite.controller;
 
 import jakarta.validation.Valid;
 import net.daniel.azevedo.meuwebsite.dto.post.CreatePostDTO;
-import net.daniel.azevedo.meuwebsite.dto.post.PostDTO;
 import net.daniel.azevedo.meuwebsite.dto.post.UpdatePostDTO;
-import net.daniel.azevedo.meuwebsite.dto.usuario.PostResponseDTO;
+import net.daniel.azevedo.meuwebsite.dto.post.PostResponseDTO;
 import net.daniel.azevedo.meuwebsite.service.PostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

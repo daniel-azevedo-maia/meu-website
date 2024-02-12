@@ -1,24 +1,28 @@
 #topo {
-    background: linear-gradient(135deg, #000, #1a1a1a, #003366);
+    background: linear-gradient(135deg, #000, #0f0f0f, #003366);
 }
 
 #topo, #topo a, #topo .nav-link, #topo .navbar-brand {
     color: white;
-    transition: color 0.3s;
+    transition: color 0.3s, background-color 0.3s;
 }
 
 #topo a:hover, #topo .nav-link:hover, #topo .navbar-brand:hover {
-    color: #aaa;
-    text-decoration: underline;
+    color: #ccc;
+    background-color: rgba(255, 255, 255, 0.1); 
+    text-decoration: none; 
+    border-radius: 5px; 
 }
 
-/* Estilos para o menu dropdown */
 #topo .dropdown-menu {
     background-color: #1a1a1a;
+    border: none; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
 }
 
 #topo .dropdown-menu a {
     color: white;
+    transition: background-color 0.3s;
 }
 
 #topo .dropdown-menu a:hover {
@@ -26,5 +30,16 @@
 }
 
 #topo .navbar-toggler-icon {
-    filter: invert(1); /* inverte as cores, tornando o ícone branco */
+    filter: invert(1); 
+}
+
+#btnPesquisar {
+    border-color: #3498db; 
+    background-color: transparent; 
+    color: white;
+}
+
+#btnPesquisar:hover {
+    background-color: #3498db; 
+    color: white;
 }

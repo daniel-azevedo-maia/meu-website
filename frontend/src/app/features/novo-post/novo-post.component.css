@@ -42,9 +42,10 @@ select.form-control {
 
 .ckeditor {
     margin-top: 5px;
-    min-height: 400px; /* Aumentando a altura mínima do CKEditor */
-    font-size: 14px; /* Tamanho de fonte reduzido */
+    min-height: 950px; /* Altura ajustada para caber aproximadamente 50 linhas */
+    font-size: 14px;
 }
+
 
 .submit-button {
     display: block;

@@ -25,3 +25,9 @@
 #footer-page a:hover {
     color: #aaa; 
 }
+
+
+#footer-page #politica-privacidade {
+    font-size: 0.875em; /* Ajuste para corresponder ao tamanho do texto de direitos autorais */
+}
+

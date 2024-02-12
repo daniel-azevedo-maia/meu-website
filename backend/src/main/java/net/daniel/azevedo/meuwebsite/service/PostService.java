@@ -1,13 +1,17 @@
 package net.daniel.azevedo.meuwebsite.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import net.daniel.azevedo.meuwebsite.domain.Post;
 import net.daniel.azevedo.meuwebsite.domain.Usuario;
 import net.daniel.azevedo.meuwebsite.dto.post.CreatePostDTO;
 import net.daniel.azevedo.meuwebsite.dto.post.UpdatePostDTO;
-import net.daniel.azevedo.meuwebsite.dto.usuario.PostResponseDTO;
+import net.daniel.azevedo.meuwebsite.dto.post.PostResponseDTO;
+import net.daniel.azevedo.meuwebsite.exception.post.PostNotFoundException;
+import net.daniel.azevedo.meuwebsite.exception.usuario.UsuarioNotFoundException;
 import net.daniel.azevedo.meuwebsite.repository.PostRepository;
 import net.daniel.azevedo.meuwebsite.repository.UsuarioRepository;
 import org.springframework.beans.BeanUtils;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,14 +59,14 @@ public class PostService {
 
     public PostResponseDTO buscarPorId(Long postId) {
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new RuntimeException("Post não encontrado!"));
+                .orElseThrow(() -> new PostNotFoundException(postId));
         return converterParaPostResponseDTO(post);
     }
 
     public List<PostResponseDTO> buscarPostsPorUsuario(Long usuarioId) {
 
         Usuario usuario = usuarioRepository.findById(usuarioId)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado!"));
+                .orElseThrow(() -> new UsuarioNotFoundException(usuarioId));
 
         List<Post> postsUsuario = usuario.getPosts();
 
@@ -76,7 +80,7 @@ public class PostService {
     public PostResponseDTO atualizar(UpdatePostDTO updatePostDTO, Long postId) {
 
         Post postParaAtualizar = postRepository.findById(postId)
-                .orElseThrow(() -> new RuntimeException("Post não encontrado!"));
+                .orElseThrow(() -> new PostNotFoundException(postId));
 
         BeanUtils.copyProperties(updatePostDTO, postParaAtualizar, "id");
 
@@ -88,9 +92,15 @@ public class PostService {
 
     @Transactional
     public void removerPorId(Long postId) {
+
         postRepository.findById(postId)
-                .orElseThrow(() -> new RuntimeException("Post não encontrado!"));
-        postRepository.deleteById(postId);
+                .orElseThrow(() -> new PostNotFoundException(postId));
+        try {
+            postRepository.deleteById(postId);
+        } catch (EmptyResultDataAccessException e) {
+            throw new PostNotFoundException(postId);
+        }
+
     }
 
     // Métodos para manipulação de DTOs -------------------------------------
