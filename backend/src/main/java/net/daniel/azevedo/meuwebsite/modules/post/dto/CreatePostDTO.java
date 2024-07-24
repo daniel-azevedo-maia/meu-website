@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import net.daniel.azevedo.meuwebsite.core.domain.Categoria;
 
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -36,6 +35,6 @@ public class CreatePostDTO {
     private Categoria categoria;
 
     @NotNull
-    private UUID userId;
+    private Long userId;
 
 }

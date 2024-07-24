@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -38,7 +38,7 @@ public class UserService {
 
 
     @Transactional(readOnly = true)
-    public User findById(UUID userId) {
+    public User findById(Long userId) {
 
         return userRepository.findById(userId).orElseThrow(
                 () -> new EntityNotFoundException(String.format("User %s not found", userId))
@@ -47,7 +47,7 @@ public class UserService {
     }
 
     @Transactional
-    public void deleteById(UUID userId) {
+    public void deleteById(Long userId) {
 
         User user = findById(userId);
 
@@ -59,16 +59,14 @@ public class UserService {
     }
 
     @Transactional
-    public User update(UUID userId, UpdateUserDTO updateUserDTO) {
-
+    public User update(Long userId, UpdateUserDTO updateUserDTO) {
         User user = findById(userId);
-        user.setAddress(updateUserDTO.getAddress());
-        user.setPassword(updateUserDTO.getPassword());
-        user.setEmail(updateUserDTO.getEmail());
+
+        Optional.ofNullable(updateUserDTO.getPassword()).ifPresent(user::setPassword);
+        Optional.ofNullable(updateUserDTO.getEmail()).ifPresent(user::setEmail);
+        Optional.ofNullable(updateUserDTO.getAddress()).ifPresent(user::setAddress);
 
         return userRepository.save(user);
-
     }
-
 
 }

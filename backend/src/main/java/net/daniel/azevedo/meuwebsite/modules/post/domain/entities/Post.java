@@ -11,7 +11,6 @@ import net.daniel.azevedo.meuwebsite.modules.user.domain.entities.User;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.UUID;
 
 @Getter @Setter @NoArgsConstructor
 @Entity
@@ -19,9 +18,9 @@ import java.util.UUID;
 public class Post implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
-    private UUID postId;
+    private Long postId;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

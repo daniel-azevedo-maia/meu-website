@@ -2,6 +2,7 @@ package net.daniel.azevedo.meuwebsite.modules.user.mapper;
 
 import lombok.AllArgsConstructor;
 import net.daniel.azevedo.meuwebsite.modules.user.dto.CreateUserDTO;
+import net.daniel.azevedo.meuwebsite.modules.user.dto.UserDetailDTO;
 import net.daniel.azevedo.meuwebsite.modules.user.dto.UserResponseDTO;
 import net.daniel.azevedo.meuwebsite.modules.user.domain.entities.User;
 import org.modelmapper.ModelMapper;
@@ -28,4 +29,7 @@ public class UserMapper {
         return users.stream().map(user -> toUserResponseDto(user)).collect(Collectors.toList());
     }
 
+    public UserDetailDTO toUserDetailDto(User user) {
+        return modelMapper.map(user, UserDetailDTO.class);
+    }
 }

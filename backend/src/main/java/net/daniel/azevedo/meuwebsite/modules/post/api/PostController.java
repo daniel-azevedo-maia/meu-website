@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
@@ -36,19 +35,19 @@ public class PostController {
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity<PostResponseDTO> findById(@PathVariable UUID postId) {
+    public ResponseEntity<PostResponseDTO> findById(@PathVariable Long postId) {
         Post post = postService.findById(postId);
         return ResponseEntity.ok(postMapper.toPostResponseDto(post));
     }
 
     @PatchMapping("/{postId}")
-    public ResponseEntity<PostResponseDTO> update(@PathVariable UUID postId, @Valid @RequestBody UpdatePostDTO updatePostDTO) {
+    public ResponseEntity<PostResponseDTO> update(@PathVariable Long postId, @Valid @RequestBody UpdatePostDTO updatePostDTO) {
         Post post = postService.update(postId, updatePostDTO);
         return ResponseEntity.ok(postMapper.toPostResponseDto(post));
     }
 
     @DeleteMapping("/{postId}")
-    public ResponseEntity<?> deleteById(@PathVariable UUID postId) {
+    public ResponseEntity<?> deleteById(@PathVariable Long postId) {
         postService.deleteById(postId);
         return ResponseEntity.noContent().build();
     }

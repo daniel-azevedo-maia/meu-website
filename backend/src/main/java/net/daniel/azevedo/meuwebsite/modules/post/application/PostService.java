@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -47,19 +46,19 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public Post findById(UUID postId) {
+    public Post findById(Long postId) {
         return postRepository.findById(postId)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Post %s not found", postId)));
     }
 
     @Transactional
-    public void deleteById(UUID postId) {
+    public void deleteById(Long postId) {
         Post post = findById(postId);
         postRepository.delete(post);
     }
 
     @Transactional
-    public Post update(UUID postId, UpdatePostDTO updatePostDTO) {
+    public Post update(Long postId, UpdatePostDTO updatePostDTO) {
         Post post = findById(postId);
         post.setTitulo(updatePostDTO.getTitulo());
         post.setSubtitulo(updatePostDTO.getSubtitulo());

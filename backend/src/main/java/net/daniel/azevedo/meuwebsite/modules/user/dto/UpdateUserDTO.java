@@ -15,11 +15,9 @@ import net.daniel.azevedo.meuwebsite.core.domain.Address;
 @AllArgsConstructor
 public class UpdateUserDTO {
 
-    @NotBlank
     @Size(min = 6, max = 200)
     private String password;
 
-    @NotBlank
     @Email(message = "Email format is invalid")
     private String email;
 
