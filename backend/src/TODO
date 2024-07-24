@@ -1,0 +1,26 @@
+// TODO: Refatorar Código de Exceções
+// - Reorganizar as classes de exceções para seguir um padrão consistente.
+// - Criar exceções personalizadas para diferentes cenários de erro.
+// - Implementar mensagens de erro detalhadas e específicas.
+
+// TODO: Integrar Exceções nos Services e Demais Classes
+// - Atualizar os services para lançar as novas exceções personalizadas.
+// - Garantir que os controladores e outras classes manipulem as exceções corretamente.
+// - Adicionar logs para as exceções capturadas.
+
+// TODO: Adicionar Spring Security
+// - Configurar Spring Security para autenticação e autorização.
+// - Implementar o login e logout.
+// - Proteger as rotas da API com roles e permissões.
+// - Adicionar a possibilidade de recuperação e alteração de senha.
+
+// TODO: Documentar API com Swagger
+// - Integrar Swagger ao projeto para a documentação da API.
+// - Anotar os endpoints com @ApiOperation, @ApiResponses, etc.
+// - Gerar a interface interativa da API com Swagger UI.
+
+// TODO: Adicionar Camada de Testes
+// - Criar testes unitários para os services e controladores.
+// - Implementar testes de integração para validar a interação entre componentes.
+// - Usar Mockito para mockar dependências e testar casos isolados.
+// - Configurar um ambiente de testes com um banco de dados em memória (H2).

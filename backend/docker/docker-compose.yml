@@ -1,0 +1,29 @@
+# Tutorial:
+
+# 1) Caso haja erro de uso de porta MySQL, utilize os seguintes comandos:
+# netstat -ano | findstr :3306
+# taskkill /PID <PID> /F
+# 2) Utilize o comando docker-compose up -d
+# 3) Veja se o container subiu com docker ps
+# 4) docker exec -it mysql_container mysql -u admin -p Insira a senha quando solicitado (root, conforme especificado no docker-compose.yml)
+# 5) Use o SHOW DATABASES;
+# 6)  O volume mysql_data garante que os dados não sejam perdidos quando o contêiner for parado ou reiniciado.
+
+version: '3.8'  # Define a versão do Docker Compose que está sendo usada.
+
+services:
+  mysql:  # Define um serviço chamado 'mysql'.
+    image: mysql:latest  # Especifica a imagem do Docker a ser usada para o contêiner MySQL. Neste caso, a versão mais recente do MySQL.
+    container_name: mysql_container  # Define o nome do contêiner como 'mysql_container'.
+    ports:
+      - "3306:3306"  # Mapeia a porta 3306 do contêiner para a porta 3306 do host, permitindo o acesso ao MySQL através da porta 3306 do host.
+    environment:  # Define variáveis de ambiente a serem passadas para o contêiner MySQL.
+      MYSQL_ROOT_PASSWORD: admin  # Define a senha para o usuário root do MySQL.
+      MYSQL_DATABASE: daniel-azevedo-db  # Cria um banco de dados padrão chamado 'daniel-azevedo-db' ao iniciar o contêiner.
+      MYSQL_USER: admin  # Define um usuário padrão 'admin'.
+      MYSQL_PASSWORD: root  # Define a senha para o usuário 'admin'.
+    volumes:
+      - mysql_data:/var/lib/mysql  # Monta um volume persistente para armazenar os dados do MySQL. Isso garante que os dados do banco de dados sejam persistidos entre as reinicializações do contêiner.
+
+volumes:
+  mysql_data:  # Define um volume chamado 'mysql_data'. Este volume será usado para armazenar os dados do MySQL de forma persistente.
