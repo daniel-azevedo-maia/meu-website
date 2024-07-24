@@ -5,9 +5,11 @@ import lombok.RequiredArgsConstructor;
 import net.daniel.azevedo.meuwebsite.modules.post.application.PostService;
 import net.daniel.azevedo.meuwebsite.modules.post.domain.entities.Post;
 import net.daniel.azevedo.meuwebsite.modules.post.dto.CreatePostDTO;
+import net.daniel.azevedo.meuwebsite.modules.post.dto.ListPostsDTO;
 import net.daniel.azevedo.meuwebsite.modules.post.dto.PostResponseDTO;
 import net.daniel.azevedo.meuwebsite.modules.post.dto.UpdatePostDTO;
 import net.daniel.azevedo.meuwebsite.modules.post.mapper.PostMapper;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,9 +25,9 @@ public class PostController {
     private final PostMapper postMapper;
 
     @GetMapping
-    public ResponseEntity<List<PostResponseDTO>> getAll() {
+    public ResponseEntity<List<ListPostsDTO>> getAll() {
         List<Post> posts = postService.getAll();
-        return ResponseEntity.ok(postMapper.toListPostResponseDto(posts));
+        return ResponseEntity.ok(postMapper.toListPostsDto(posts));
     }
 
     @PostMapping
@@ -38,6 +40,12 @@ public class PostController {
     public ResponseEntity<PostResponseDTO> findById(@PathVariable Long postId) {
         Post post = postService.findById(postId);
         return ResponseEntity.ok(postMapper.toPostResponseDto(post));
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<PostResponseDTO>> findPostsByUserId(@PathVariable Long userId) {
+        List<Post> postsByUserId = postService.findPostsByUserId(userId);
+        return ResponseEntity.ok(postMapper.toListPostResponseDto(postsByUserId));
     }
 
     @PatchMapping("/{postId}")

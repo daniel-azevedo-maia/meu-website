@@ -4,8 +4,8 @@ public class PostNotFoundException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    public PostNotFoundException(Long id) {
-        super("Post com id " + id + " não encontrado.");
+    public PostNotFoundException(Long postId) {
+        super("Post with ID " + postId + " not found.");
     }
 
 }

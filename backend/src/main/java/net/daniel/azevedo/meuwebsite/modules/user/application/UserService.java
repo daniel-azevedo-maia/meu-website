@@ -32,25 +32,19 @@ public class UserService {
         try {
             return userRepository.save(user);
         } catch (DataIntegrityViolationException ex) {
-            throw new UsernameUniqueViolationException(String.format("Username %s already exists", user.getUsername()), ex);
+            throw new UsernameUniqueViolationException(user.getUsername(), ex);
         }
     }
 
-
     @Transactional(readOnly = true)
     public User findById(Long userId) {
-
         return userRepository.findById(userId).orElseThrow(
-                () -> new EntityNotFoundException(String.format("User %s not found", userId))
+                () -> new UserNotFoundException(userId)
         );
-
     }
 
     @Transactional
     public void deleteById(Long userId) {
-
-        User user = findById(userId);
-
         try {
             userRepository.deleteById(userId);
         } catch (EmptyResultDataAccessException e) {

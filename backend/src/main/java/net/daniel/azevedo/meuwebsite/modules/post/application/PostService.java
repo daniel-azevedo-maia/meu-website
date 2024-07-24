@@ -3,10 +3,13 @@ package net.daniel.azevedo.meuwebsite.modules.post.application;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import net.daniel.azevedo.meuwebsite.modules.post.domain.entities.Post;
+import net.daniel.azevedo.meuwebsite.modules.post.domain.exceptions.PostNotFoundException;
 import net.daniel.azevedo.meuwebsite.modules.post.domain.repositories.PostRepository;
 import net.daniel.azevedo.meuwebsite.modules.post.dto.CreatePostDTO;
 import net.daniel.azevedo.meuwebsite.modules.post.dto.UpdatePostDTO;
+
 import net.daniel.azevedo.meuwebsite.modules.user.domain.entities.User;
+import net.daniel.azevedo.meuwebsite.modules.user.domain.exceptions.UserNotFoundException;
 import net.daniel.azevedo.meuwebsite.modules.user.domain.repositories.UserRepository;
 
 import org.springframework.stereotype.Service;
@@ -30,17 +33,17 @@ public class PostService {
     @Transactional
     public Post create(CreatePostDTO createPostDTO) {
         User user = userRepository.findById(createPostDTO.getUserId())
-                .orElseThrow(() -> new EntityNotFoundException(String.format("User %s not found", createPostDTO.getUserId())));
+                .orElseThrow(() -> new UserNotFoundException(createPostDTO.getUserId()));
 
         Post post = new Post();
         post.setUser(user);
-        post.setTitulo(createPostDTO.getTitulo());
-        post.setSubtitulo(createPostDTO.getSubtitulo());
-        post.setTexto(createPostDTO.getTexto());
-        post.setUrlImagem(createPostDTO.getUrlImagem());
-        post.setCategoria(createPostDTO.getCategoria());
-        post.setDataHoraCriacao(LocalDateTime.now());
-        post.setAtualizacao(LocalDateTime.now());
+        post.setTitle(createPostDTO.getTitle());
+        post.setSubtitle(createPostDTO.getSubtitle());
+        post.setText(createPostDTO.getText());
+        post.setImageUrl(createPostDTO.getImageUrl());
+        post.setCategory(createPostDTO.getCategory());
+        post.setCreationDateTime(LocalDateTime.now());
+        post.setUpdateDateTime(LocalDateTime.now());
 
         return postRepository.save(post);
     }
@@ -48,7 +51,14 @@ public class PostService {
     @Transactional(readOnly = true)
     public Post findById(Long postId) {
         return postRepository.findById(postId)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Post %s not found", postId)));
+                .orElseThrow(() -> new PostNotFoundException(postId));
+    }
+
+    @Transactional(readOnly = true)
+    public List<Post> findPostsByUserId(Long userId) {
+        userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
+        return postRepository.findAllByUserId(userId);
     }
 
     @Transactional
@@ -60,12 +70,12 @@ public class PostService {
     @Transactional
     public Post update(Long postId, UpdatePostDTO updatePostDTO) {
         Post post = findById(postId);
-        post.setTitulo(updatePostDTO.getTitulo());
-        post.setSubtitulo(updatePostDTO.getSubtitulo());
-        post.setTexto(updatePostDTO.getTexto());
-        post.setUrlImagem(updatePostDTO.getUrlImagem());
-        post.setCategoria(updatePostDTO.getCategoria());
-        post.setAtualizacao(LocalDateTime.now());
+        post.setTitle(updatePostDTO.getTitle());
+        post.setSubtitle(updatePostDTO.getSubtitle());
+        post.setText(updatePostDTO.getText());
+        post.setImageUrl(updatePostDTO.getImageUrl());
+        post.setCategory(updatePostDTO.getCategory());
+        post.setUpdateDateTime(LocalDateTime.now());
         return postRepository.save(post);
     }
 

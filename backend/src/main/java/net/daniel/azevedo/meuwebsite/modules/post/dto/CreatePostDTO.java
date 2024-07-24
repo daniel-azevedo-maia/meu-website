@@ -7,8 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import net.daniel.azevedo.meuwebsite.core.domain.Categoria;
-
+import net.daniel.azevedo.meuwebsite.core.domain.Category;
 
 @Getter
 @Setter
@@ -18,21 +17,21 @@ public class CreatePostDTO {
 
     @NotBlank
     @Size(max = 150)
-    private String titulo;
+    private String title;
 
     @NotBlank
     @Size(max = 350)
-    private String subtitulo;
+    private String subtitle;
 
     @NotBlank
     @Size(max = 10_000)
-    private String texto;
+    private String text;
 
     @NotBlank
-    private String urlImagem;
+    private String imageUrl;
 
     @NotNull
-    private Categoria categoria;
+    private Category category;
 
     @NotNull
     private Long userId;

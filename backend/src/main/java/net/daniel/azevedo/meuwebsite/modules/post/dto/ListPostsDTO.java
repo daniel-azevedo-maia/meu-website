@@ -13,24 +13,16 @@ import net.daniel.azevedo.meuwebsite.core.domain.Category;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdatePostDTO {
+public class ListPostsDTO {
 
     @NotBlank
     @Size(max = 150)
     private String title;
 
-    @NotBlank
-    @Size(max = 350)
-    private String subtitle;
-
-    @NotBlank
-    @Size(max = 10_000)
-    private String text;
-
-    @NotBlank
-    private String imageUrl;
-
     @NotNull
     private Category category;
+
+    @NotNull
+    private Long userId;
 
 }

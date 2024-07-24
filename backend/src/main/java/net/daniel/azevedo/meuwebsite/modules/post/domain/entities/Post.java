@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import net.daniel.azevedo.meuwebsite.core.domain.Categoria;
+import net.daniel.azevedo.meuwebsite.core.domain.Category;
 import net.daniel.azevedo.meuwebsite.modules.user.domain.entities.User;
 
 import java.io.Serializable;
@@ -28,34 +28,40 @@ public class Post implements Serializable {
 
     @NotBlank
     @Column(nullable = false, length = 150)
-    private String titulo;
+    private String title;
 
     @NotBlank
     @Column(nullable = false, length = 350)
-    private String subtitulo;
+    private String subtitle;
 
     @NotBlank
-    @Column(nullable = false, length = 10_000)
-    private String texto;
+    @Lob
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String text;
 
     @NotBlank
     @Column(nullable = false)
-    private String urlImagem;
+    private String imageUrl;
 
-    @Column(name = "data_hora_criacao", nullable = false, updatable = false)
-    private LocalDateTime dataHoraCriacao;
+    @Column(name = "creation_date_time", nullable = false, updatable = false)
+    private LocalDateTime creationDateTime;
 
-    @Column(nullable = false)
-    private LocalDateTime atualizacao = LocalDateTime.now();
+    @Column(name = "update_date_time", nullable = false)
+    private LocalDateTime updateDateTime;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Categoria categoria;
+    private Category category;
 
-    // Método que será chamado antes de atualizar a entidade
+    @PrePersist
+    protected void onCreate() {
+        this.creationDateTime = LocalDateTime.now();
+        this.updateDateTime = LocalDateTime.now();
+    }
+
     @PreUpdate
-    protected void upUpdate() {
-        this.atualizacao = LocalDateTime.now();
+    protected void onUpdate() {
+        this.updateDateTime = LocalDateTime.now();
     }
 
     @Override
@@ -75,14 +81,14 @@ public class Post implements Serializable {
     public String toString() {
         return "Post{" +
                 "postId=" + postId +
-                ", usuario=" + user +
-                ", titulo='" + titulo + '\'' +
-                ", subtitulo='" + subtitulo + '\'' +
-                ", texto='" + texto + '\'' +
-                ", urlImagem='" + urlImagem + '\'' +
-                ", dataHoraCriacao=" + dataHoraCriacao +
-                ", atualizacao=" + atualizacao +
-                ", categoria=" + categoria +
+                ", user=" + user +
+                ", title='" + title + '\'' +
+                ", subtitle='" + subtitle + '\'' +
+                ", text='" + text + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", creationDateTime=" + creationDateTime +
+                ", updateDateTime=" + updateDateTime +
+                ", category=" + category +
                 '}';
     }
 }
