@@ -20,18 +20,6 @@ public class ApiExceptionHandler {
         return buildResponseEntity(request, HttpStatus.NOT_FOUND, ex.getMessage());
     }
 
-    @ExceptionHandler(UserAlreadyExistsException.class)
-    public ResponseEntity<ErrorMessage> handleUserAlreadyExistsException(UserAlreadyExistsException ex, HttpServletRequest request) {
-        log.error("User already exists exception - ", ex);
-        return buildResponseEntity(request, HttpStatus.CONFLICT, ex.getMessage());
-    }
-
-    @ExceptionHandler(InvalidUserException.class)
-    public ResponseEntity<ErrorMessage> handleInvalidUserException(InvalidUserException ex, HttpServletRequest request) {
-        log.error("Invalid user exception - ", ex);
-        return buildResponseEntity(request, HttpStatus.BAD_REQUEST, ex.getMessage());
-    }
-
     @ExceptionHandler(PostNotFoundException.class)
     public ResponseEntity<ErrorMessage> handlePostNotFoundException(PostNotFoundException ex, HttpServletRequest request) {
         log.error("Post not found exception - ", ex);
