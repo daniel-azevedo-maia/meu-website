@@ -2,12 +2,10 @@ package net.daniel.azevedo.meuwebsite.modules.post.api;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import net.daniel.azevedo.meuwebsite.core.domain.Category;
 import net.daniel.azevedo.meuwebsite.modules.post.application.PostService;
 import net.daniel.azevedo.meuwebsite.modules.post.domain.entities.Post;
-import net.daniel.azevedo.meuwebsite.modules.post.dto.CreatePostDTO;
-import net.daniel.azevedo.meuwebsite.modules.post.dto.ListPostsDTO;
-import net.daniel.azevedo.meuwebsite.modules.post.dto.PostResponseDTO;
-import net.daniel.azevedo.meuwebsite.modules.post.dto.UpdatePostDTO;
+import net.daniel.azevedo.meuwebsite.modules.post.dto.*;
 import net.daniel.azevedo.meuwebsite.modules.post.mapper.PostMapper;
 
 import org.springframework.http.HttpStatus;
@@ -18,7 +16,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/posts")
+@RequestMapping("api/v1/posts")
 public class PostController {
 
     private final PostService postService;
@@ -47,6 +45,25 @@ public class PostController {
         List<Post> postsByUserId = postService.findPostsByUserId(userId);
         return ResponseEntity.ok(postMapper.toListPostResponseDto(postsByUserId));
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<PostResponseDTO>> searchPosts(@RequestParam(required = false) String word,
+                                                             @RequestParam(required = false) String category) {
+        PostSearch postSearch = new PostSearch();
+        postSearch.setWord(word);
+
+        if (category != null) {
+            try {
+                postSearch.setCategory(Category.valueOf(category.toUpperCase()));
+            } catch (IllegalArgumentException e) {
+                return ResponseEntity.badRequest().body(null);
+            }
+        }
+
+        List<Post> posts = postService.searchPosts(postSearch);
+        return ResponseEntity.ok(postMapper.toListPostResponseDto(posts));
+    }
+
 
     @PatchMapping("/{postId}")
     public ResponseEntity<PostResponseDTO> update(@PathVariable Long postId, @Valid @RequestBody UpdatePostDTO updatePostDTO) {

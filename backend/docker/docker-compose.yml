@@ -16,7 +16,7 @@ services:
     image: mysql:latest  # Especifica a imagem do Docker a ser usada para o contêiner MySQL. Neste caso, a versão mais recente do MySQL.
     container_name: mysql_container  # Define o nome do contêiner como 'mysql_container'.
     ports:
-      - "3306:3306"  # Mapeia a porta 3306 do contêiner para a porta 3306 do host, permitindo o acesso ao MySQL através da porta 3306 do host.
+      - "3307:3306"  # Mapeia a porta 3306 do contêiner para a porta 3306 do host, permitindo o acesso ao MySQL através da porta 3306 do host.
     environment:  # Define variáveis de ambiente a serem passadas para o contêiner MySQL.
       MYSQL_ROOT_PASSWORD: admin  # Define a senha para o usuário root do MySQL.
       MYSQL_DATABASE: daniel-azevedo-db  # Cria um banco de dados padrão chamado 'daniel-azevedo-db' ao iniciar o contêiner.

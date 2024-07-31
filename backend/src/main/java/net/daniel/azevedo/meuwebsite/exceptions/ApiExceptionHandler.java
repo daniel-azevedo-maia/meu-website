@@ -2,14 +2,8 @@ package net.daniel.azevedo.meuwebsite.exceptions;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-
-import net.daniel.azevedo.meuwebsite.modules.post.domain.exceptions.PostAlreadyExistsException;
-import net.daniel.azevedo.meuwebsite.modules.post.domain.exceptions.PostNotAuthorizedException;
-import net.daniel.azevedo.meuwebsite.modules.post.domain.exceptions.PostNotFoundException;
-import net.daniel.azevedo.meuwebsite.modules.post.domain.exceptions.UserHasPostsException;
-import net.daniel.azevedo.meuwebsite.modules.user.domain.exceptions.InvalidUserException;
-import net.daniel.azevedo.meuwebsite.modules.user.domain.exceptions.UserAlreadyExistsException;
-import net.daniel.azevedo.meuwebsite.modules.user.domain.exceptions.UserNotFoundException;
+import net.daniel.azevedo.meuwebsite.modules.post.domain.exceptions.*;
+import net.daniel.azevedo.meuwebsite.modules.user.domain.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

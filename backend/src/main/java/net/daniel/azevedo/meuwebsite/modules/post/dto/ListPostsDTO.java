@@ -15,6 +15,8 @@ import net.daniel.azevedo.meuwebsite.core.domain.Category;
 @AllArgsConstructor
 public class ListPostsDTO {
 
+    private Long postId;
+
     @NotBlank
     @Size(max = 150)
     private String title;

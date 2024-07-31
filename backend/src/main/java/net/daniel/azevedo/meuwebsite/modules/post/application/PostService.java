@@ -1,11 +1,11 @@
 package net.daniel.azevedo.meuwebsite.modules.post.application;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import net.daniel.azevedo.meuwebsite.modules.post.domain.entities.Post;
 import net.daniel.azevedo.meuwebsite.modules.post.domain.exceptions.PostNotFoundException;
 import net.daniel.azevedo.meuwebsite.modules.post.domain.repositories.PostRepository;
 import net.daniel.azevedo.meuwebsite.modules.post.dto.CreatePostDTO;
+import net.daniel.azevedo.meuwebsite.modules.post.dto.PostSearch;
 import net.daniel.azevedo.meuwebsite.modules.post.dto.UpdatePostDTO;
 
 import net.daniel.azevedo.meuwebsite.modules.user.domain.entities.User;
@@ -52,6 +52,14 @@ public class PostService {
     public Post findById(Long postId) {
         return postRepository.findById(postId)
                 .orElseThrow(() -> new PostNotFoundException(postId));
+    }
+
+    @Transactional(readOnly = true)
+    public List<Post> searchPosts(PostSearch postSearch) {
+        return postRepository.search(
+                postSearch.getWord(),
+                postSearch.getCategory()
+        );
     }
 
     @Transactional(readOnly = true)

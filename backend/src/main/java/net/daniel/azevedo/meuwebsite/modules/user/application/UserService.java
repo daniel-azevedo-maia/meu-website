@@ -1,14 +1,13 @@
 package net.daniel.azevedo.meuwebsite.modules.user.application;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import net.daniel.azevedo.meuwebsite.modules.post.domain.repositories.PostRepository;
 import net.daniel.azevedo.meuwebsite.modules.user.dto.UpdateUserDTO;
 import net.daniel.azevedo.meuwebsite.modules.user.domain.entities.User;
 import net.daniel.azevedo.meuwebsite.modules.user.domain.exceptions.UserNotFoundException;
 import net.daniel.azevedo.meuwebsite.modules.user.domain.exceptions.UsernameUniqueViolationException;
 import net.daniel.azevedo.meuwebsite.modules.user.domain.repositories.UserRepository;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +19,7 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PostRepository postRepository;
 
     @Transactional(readOnly = true)
     public List<User> getAll() {
@@ -32,7 +32,7 @@ public class UserService {
         try {
             return userRepository.save(user);
         } catch (DataIntegrityViolationException ex) {
-            throw new UsernameUniqueViolationException(user.getUsername(), ex);
+            throw new UsernameUniqueViolationException(user.getUsername());
         }
     }
 
@@ -45,11 +45,10 @@ public class UserService {
 
     @Transactional
     public void deleteById(Long userId) {
-        try {
-            userRepository.deleteById(userId);
-        } catch (EmptyResultDataAccessException e) {
+        if (!userRepository.existsById(userId)) {
             throw new UserNotFoundException(userId);
         }
+        userRepository.deleteById(userId);
     }
 
     @Transactional
@@ -59,6 +58,8 @@ public class UserService {
         Optional.ofNullable(updateUserDTO.getPassword()).ifPresent(user::setPassword);
         Optional.ofNullable(updateUserDTO.getEmail()).ifPresent(user::setEmail);
         Optional.ofNullable(updateUserDTO.getAddress()).ifPresent(user::setAddress);
+        Optional.ofNullable(updateUserDTO.getFirstName()).ifPresent(user::setFirstName);
+        Optional.ofNullable(updateUserDTO.getLastName()).ifPresent(user::setLastName);
 
         return userRepository.save(user);
     }

@@ -20,10 +20,10 @@ public class Post implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
-    private Long postId;
+    private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @NotBlank
@@ -69,18 +69,18 @@ public class Post implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Post post = (Post) o;
-        return Objects.equals(postId, post.postId);
+        return Objects.equals(id, post.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(postId);
+        return Objects.hash(id);
     }
 
     @Override
     public String toString() {
         return "Post{" +
-                "postId=" + postId +
+                "postId=" + id +
                 ", user=" + user +
                 ", title='" + title + '\'' +
                 ", subtitle='" + subtitle + '\'' +
