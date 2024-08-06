@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import net.daniel.azevedo.meuwebsite.core.domain.Category;
 import net.daniel.azevedo.meuwebsite.modules.user.domain.entities.User;
 
 import java.io.Serializable;

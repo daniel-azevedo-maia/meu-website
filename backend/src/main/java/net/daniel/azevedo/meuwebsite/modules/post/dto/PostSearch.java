@@ -4,7 +4,7 @@ package net.daniel.azevedo.meuwebsite.modules.post.dto;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import net.daniel.azevedo.meuwebsite.core.domain.Category;
+import net.daniel.azevedo.meuwebsite.modules.post.domain.entities.Category;
 
 @Getter @Setter
 public class PostSearch {

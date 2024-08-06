@@ -1,4 +1,4 @@
-package net.daniel.azevedo.meuwebsite.core.domain;
+package net.daniel.azevedo.meuwebsite.modules.post.domain.entities;
 
 public enum Category {
 

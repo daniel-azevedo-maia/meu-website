@@ -1,6 +1,6 @@
 package net.daniel.azevedo.meuwebsite.modules.post.domain.repositories;
 
-import net.daniel.azevedo.meuwebsite.core.domain.Category;
+import net.daniel.azevedo.meuwebsite.modules.post.domain.entities.Category;
 import net.daniel.azevedo.meuwebsite.modules.post.domain.entities.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -2,7 +2,7 @@ package net.daniel.azevedo.meuwebsite.modules.post.api;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import net.daniel.azevedo.meuwebsite.core.domain.Category;
+import net.daniel.azevedo.meuwebsite.modules.post.domain.entities.Category;
 import net.daniel.azevedo.meuwebsite.modules.post.application.PostService;
 import net.daniel.azevedo.meuwebsite.modules.post.domain.entities.Post;
 import net.daniel.azevedo.meuwebsite.modules.post.dto.*;
