@@ -1,5 +1,11 @@
-<app-navbar></app-navbar>
+<div id="wrapper">
+    <!-- Main -->
+    <div id="main">
+        <div class="inner">
+            <header-component></header-component>
+            <router-outlet></router-outlet> <!-- Para carregar componentes específicos de acordo com as rotas -->
+        </div>
+    </div>
 
-<router-outlet></router-outlet>
-
-<app-footer></app-footer>
+    <sidebar-component></sidebar-component>
+</div>
