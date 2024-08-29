@@ -23,9 +23,9 @@ public class PostController {
     private final PostMapper postMapper;
 
     @GetMapping
-    public ResponseEntity<List<ListPostsDTO>> getAll() {
+    public ResponseEntity<List<PostSummaryDTO>> getAll() {
         List<Post> posts = postService.getAll();
-        return ResponseEntity.ok(postMapper.toListPostsDto(posts));
+        return ResponseEntity.ok(postMapper.toPostSummaryDtoList(posts));
     }
 
     @PostMapping
